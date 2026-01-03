@@ -5,10 +5,80 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum DiffShape {
+  CIRCLE
+  RECT
+}
+
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  role         Role     @default(USER)
+  createdAt    DateTime @default(now())
+
+  attempts     Attempt[]
+}
+
+model Level {
+  id           String   @id @default(cuid())
+  title        String
+  leftImageUrl String
+  rightImageUrl String
+  diffCount    Int      @default(0)
+  isPublished  Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  diffs        Diff[]
+  attempts     Attempt[]
+}
+
+model Diff {
+  id        String    @id @default(cuid())
+  levelId   String
+  shape     DiffShape
+  // 원본 이미지 기준 좌표
+  x         Int
+  y         Int
+  // CIRCLE이면 r 사용 / RECT이면 w,h 사용
+  r         Int?
+  w         Int?
+  h         Int?
+
+  createdAt DateTime  @default(now())
+
+  level     Level     @relation(fields: [levelId], references: [id], onDelete: Cascade)
+
+  @@index([levelId])
+}
+
+model Attempt {
+  id         String   @id @default(cuid())
+  userId     String
+  levelId    String
+  startedAt  DateTime @default(now())
+  finishedAt DateTime?
+  durationMs Int?
+  wrongClicks Int     @default(0)
+  foundCount Int      @default(0)
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level      Level    @relation(fields: [levelId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([levelId])
 }

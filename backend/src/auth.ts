@@ -3,6 +3,7 @@ import type { Router as ExpressRouter } from "express";
 import bcrypt from "bcrypt";
 import z from "zod";
 import { prisma } from "./prisma";
+import { Role } from "@prisma/client";
 
 const router: ExpressRouter = Router();
 
@@ -28,7 +29,7 @@ router.post("/signup", async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
-        data: { username, passwordHash, role: "USER" },
+        data: { username, passwordHash, role: Role.USER },
         select: { id: true, username: true, role: true, createdAt: true },
     });
 

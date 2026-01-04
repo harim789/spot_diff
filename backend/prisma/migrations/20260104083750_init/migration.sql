@@ -1,9 +1,6 @@
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 
--- CreateEnum
-CREATE TYPE "DiffShape" AS ENUM ('CIRCLE', 'RECT');
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -33,12 +30,9 @@ CREATE TABLE "Level" (
 CREATE TABLE "Diff" (
     "id" TEXT NOT NULL,
     "levelId" TEXT NOT NULL,
-    "shape" "DiffShape" NOT NULL,
     "x" INTEGER NOT NULL,
     "y" INTEGER NOT NULL,
-    "r" INTEGER,
-    "w" INTEGER,
-    "h" INTEGER,
+    "r" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Diff_pkey" PRIMARY KEY ("id")

@@ -17,11 +17,6 @@ enum Role {
   ADMIN
 }
 
-enum DiffShape {
-  CIRCLE
-  RECT
-}
-
 model User {
   id           String   @id @default(cuid())
   username     String   @unique
@@ -49,14 +44,10 @@ model Level {
 model Diff {
   id        String    @id @default(cuid())
   levelId   String
-  shape     DiffShape
   // 원본 이미지 기준 좌표
   x         Int
   y         Int
-  // CIRCLE이면 r 사용 / RECT이면 w,h 사용
-  r         Int?
-  w         Int?
-  h         Int?
+  r         Int
 
   createdAt DateTime  @default(now())
 

@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import { prisma } from "../src/prisma";
 import bcrypt from "bcrypt";
 
@@ -13,12 +14,12 @@ async function main() {
     where: { username },
     update: {
       passwordHash,
-      role: "ADMIN",
+      role: Role.ADMIN,
     },
     create: {
       username,
       passwordHash,
-      role: "ADMIN",
+      role: Role.ADMIN,
     },
   });
 
@@ -36,7 +37,6 @@ async function main() {
   await prisma.diff.create({
     data: {
       levelId: level.id,
-      shape: "CIRCLE",
       x: 200,
       y: 150,
       r: 30,

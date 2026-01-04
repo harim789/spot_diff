@@ -8,7 +8,7 @@ if (!connectionString) {
   throw new Error("DATABASE_URL is missing. Check backend/.env");
 }
 
-const pool = new Pool({ connectionString });
+export const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 
 export const prisma = new PrismaClient({ adapter });

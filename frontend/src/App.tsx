@@ -1,7 +1,9 @@
+import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import './App.css'
+import Login from './pages/Login';
 
-function App() {
+function Home() {
   const [msg, setMsg] = useState("loading");
 
   useEffect(() => {
@@ -21,4 +23,18 @@ function App() {
   );
 }
 
-export default App
+export default function App() {
+  return (
+    <div>
+      <header>
+        <div>
+
+        </div>
+      </header>
+
+      <Routes>
+        <Route path="/login" element={<Login />}/>
+      </Routes>
+    </div>
+  )
+}

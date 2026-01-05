@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import './App.css'
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function Home() {
   const [msg, setMsg] = useState("loading");
@@ -33,7 +34,8 @@ export default function App() {
       </header>
 
       <Routes>
-        <Route path="/login" element={<Login />}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   )

@@ -24,9 +24,9 @@ export default function Login () {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
             <div className="w-full max-w-md">
-                <div className="bg-white shadow-sm rounded-2xl border p-6">
+                <div className="bg-white shadow-sm rounded-2xl border border-gray-100 p-6">
                     <h1 className="text-2xl font-semibold tracking-tight">로그인</h1>
                     <p className="text-sm text-gray-500 mt-1">아이디와 비밀번호로 로그인하세요.</p>
 

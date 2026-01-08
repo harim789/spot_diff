@@ -1,12 +1,14 @@
 import { useState } from "react"
 import { apiFetch } from "../lib/api";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
 
 export default function Signup () {
+    const nav = useNavigate();
+    const { refreshMe } = useAuth();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [err, setErr] = useState("");
-    const nav = useNavigate();
 
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -16,6 +18,8 @@ export default function Signup () {
                 method: "POST",
                 body: JSON.stringify({ username, password }),
             });
+
+            await refreshMe();
             nav("/");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {

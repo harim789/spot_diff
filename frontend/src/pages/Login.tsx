@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiFetch } from "../lib/api";
+import { useAuth } from "../auth/AuthContext";
 
 export default function Login () {
     const nav = useNavigate();
+    const { refreshMe } = useAuth();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [err, setErr] = useState("");
@@ -16,6 +18,8 @@ export default function Login () {
                 method: "POST",
                 body: JSON.stringify({ username, password }),
             });
+
+            await refreshMe();
             nav("/");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {

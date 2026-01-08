@@ -1,19 +1,12 @@
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react'
+import { Link, Route, Routes } from 'react-router-dom';
 import './App.css'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import { apiFetch } from './lib/api';
- 
-type MeResponse = {
-  user: { id: string;
-          username: string;
-          role: "USER" | "ADMIN";
-          createdAt: string;
-  };
-};
+import { AuthProvider, useAuth } from './auth/AuthContext';
 
-function Home({ me, onLogout }: {me: MeResponse["user"] | null; onLogout: () => Promise<void>;}) {
+function Home() {
+  const { me, logout } = useAuth();
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       <div className="bg-white border rounded-2xl shadow-sm p-6">
@@ -37,8 +30,8 @@ function Home({ me, onLogout }: {me: MeResponse["user"] | null; onLogout: () => 
           <div className="mt-4 flex gap-2">
             {me ? (
               <button
-                onClick={onLogout}
-                className="rounded-xl border px-4 py-2 text-sm font-medium hover:bg-white"
+                onClick={logout}
+                className="rounded-xl border px-4 py-2 text-sm font-medium hover:bg-white transition cursor-pointer"
               >
                 로그아웃
               </button>
@@ -46,13 +39,13 @@ function Home({ me, onLogout }: {me: MeResponse["user"] | null; onLogout: () => 
               <>
                 <Link
                   to="/login"
-                  className="rounded-xl bg-black text-white px-4 py-2 text-sm font-medium hover:bg-black/90"
+                  className="rounded-xl bg-black/90 text-white px-4 py-2 text-sm font-medium hover:bg-black/80 transition"
                 >
                   로그인
                 </Link>
                 <Link
                   to="/signup"
-                  className="rounded-xl border px-4 py-2 text-sm font-medium hover:bg-white"
+                  className="rounded-xl border px-4 py-2 text-sm font-medium hover:bg-white transition"
                 >
                   회원가입
                 </Link>
@@ -65,32 +58,11 @@ function Home({ me, onLogout }: {me: MeResponse["user"] | null; onLogout: () => 
   );
 }
 
-export default function App() {
-  const nav = useNavigate();
-  const [me, setMe] = useState<MeResponse["user"] | null>(null);
-
-  const loadMe = async () => {
-    try {
-      const data = await apiFetch<MeResponse>("/api/auth/me");
-      setMe(data.user);
-    } catch {
-      setMe(null);
-    }
-  };
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    loadMe();
-  }, []);
-
-  const logout = async () => {
-    await apiFetch("/api/auth/logout", { method: "POST" });
-    await loadMe();
-    nav("/");
-  }
+function Shell() {
+  const { me, logout } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-100">
       <header className="bg-white border-b">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link to="/" className="font-semibold tracking-tight">
@@ -112,7 +84,7 @@ export default function App() {
                 </span>
                 <button
                   onClick={logout}
-                  className="text-sm px-3 py-1.5 rounded-lg border hover:bg-white"
+                  className="bg-gray-200 text-sm px-3 py-1.5 rounded-lg border hover:bg-gray-100 transition"
                 >
                   Logout
                 </button>
@@ -127,7 +99,7 @@ export default function App() {
                 </Link>
                 <Link
                   to="/signup"
-                  className="text-sm px-3 py-1.5 rounded-lg border hover:bg-white"
+                  className="bg-gray-200 text-sm px-3 py-1.5 rounded-lg border hover:bg-gray-100 transition"
                 >
                   Signup
                 </Link>
@@ -138,10 +110,18 @@ export default function App() {
       </header>
 
       <Routes>
-        <Route path="/" element={<Home me={me} onLogout={logout} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );
+}
+
+export default function App () {
+  return (
+    <AuthProvider>
+      <Shell />
+    </AuthProvider>
+  )
 }

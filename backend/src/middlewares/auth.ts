@@ -3,9 +3,10 @@ import { prisma } from "../prisma";
 
 export async function requireAuth (req: Request, res: Response, next: NextFunction) {
     const userId = req.session.userId;
+
     if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
-    const user = prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: {id: userId},
         select: { id: true, username: true, role: true },
     });
@@ -20,11 +21,11 @@ export async function requireAuth (req: Request, res: Response, next: NextFuncti
 }
 
 export async function requireAdmin (req: Request, res: Response, next: NextFunction) {
-    const user = (req as any).user as { id: string; role: "USER" | "ADMIM" };
+    const user = (req as any).user as { id: string; role: "USER" | "ADMIN" };
 
     if (!user) return res.status(500).json({ message: "Auth middleware order error" });
 
-    if (user.role !== "ADMIM") {
+    if (user.role !== "ADMIN") {
         return res.status(403).json({ message: "Forbidden" });
     }
 

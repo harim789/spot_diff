@@ -13,7 +13,11 @@ function Home() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       <div className="bg-white border rounded-2xl shadow-sm p-6">
-        <h1 className="text-2xl font-semibold tracking-tight">Spot Diff</h1>
+        <div className="mb-3">
+          <Link to="/levels" className="text-lg font-semibold bg-gray-300 mb-2 px-3 py-1.5 rounded-lg hover:bg-gray-200 transition">
+            Go to Levels!
+          </Link> 
+        </div>   
         <p className="text-sm text-gray-500 mt-1">
           프론트 ↔ 백엔드 세션 인증 테스트 화면
         </p>
@@ -72,7 +76,7 @@ function Shell() {
             Spot Diff
           </Link>
 
-          <nav className="flex items-center gap-2">
+          <nav className="flex items-center gap-2">        
             {me ? (
               <>
                 <span className="text-sm text-gray-600 sm:inline pr-1">

@@ -2,6 +2,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import './App.css'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Admin from './pages/Admin';
 import { AuthProvider, useAuth } from './auth/AuthContext';
 
 function Home() {
@@ -63,28 +64,28 @@ function Shell() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="bg-white border-b">
+      <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link to="/" className="font-semibold tracking-tight">
             Spot Diff
           </Link>
 
           <nav className="flex items-center gap-2">
-            <Link
-              to="/"
-              className="text-sm px-3 py-1.5 rounded-lg hover:bg-gray-100"
-            >
-              Home
-            </Link>
-
             {me ? (
               <>
-                <span className="text-sm text-gray-600 hidden sm:inline">
-                  {me.username} ({me.role})
+                <span className="text-sm text-gray-600 sm:inline pr-1">
+                  {me.username} 님 안녕하세요
                 </span>
+
+                {me?.role === "ADMIN" && (
+                  <Link to='/admin' className='text-sm rounded-lg px-3 py-1.5 bg-gray-200 hover:bg-gray-100 transition'>
+                    관리자 페이지
+                  </Link>
+                )}
+                
                 <button
                   onClick={logout}
-                  className="bg-gray-200 text-sm px-3 py-1.5 rounded-lg border hover:bg-gray-100 transition"
+                  className="bg-gray-200 text-sm px-3 py-1.5 rounded-lg hover:bg-gray-100 transition"
                 >
                   Logout
                 </button>
@@ -99,7 +100,7 @@ function Shell() {
                 </Link>
                 <Link
                   to="/signup"
-                  className="bg-gray-200 text-sm px-3 py-1.5 rounded-lg border hover:bg-gray-100 transition"
+                  className="bg-gray-200 text-sm px-3 py-1.5 rounded-lg hover:bg-gray-100 transition"
                 >
                   Signup
                 </Link>
@@ -113,6 +114,7 @@ function Shell() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </div>
   );

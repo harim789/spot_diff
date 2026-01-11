@@ -27,9 +27,9 @@ async function main() {
   const level = await prisma.level.create({
     data: {
       title: "Sample Level 1",
-      leftImageUrl: "https://example.com/left.png",
+      leftImageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/960px-Cat_November_2010-1a.jpg",
       rightImageUrl: "https://example.com/right.png",
-      isPublished: false,
+      isPublished: true,
     },
   });
 

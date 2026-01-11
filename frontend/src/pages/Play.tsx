@@ -43,11 +43,11 @@ export default function Play () {
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-white border border-gray-300 rounded-2xl shadow-sm p-3">
                         <div className="text-sm text-gray-500 px-1 pb-2">LEFT</div>
-                        <img src={level.leftImageUrl} className="w-full object-contain" />
+                        <img src={level.leftImageUrl} className="w-full rounded-xl object-contain" />
                     </div>
                     <div className="bg-white border border-gray-300 rounded-2xl shadow-sm p-3">
                         <div className="text-sm text-gray-500 px-1 pb-2">RIGHT</div>
-                        <img src={level.rightImageUrl} className="w-full object-contain" />
+                        <img src={level.rightImageUrl} className="w-full rounded-xl object-contain" />
                     </div>
                 </div>
             )}

@@ -5,6 +5,7 @@ import session from "express-session";
 import pgSession from "connect-pg-simple";
 import authRouter from "./auth";
 import adminRouter from "./admin";
+import levelsPublicRouter from "./routes/levels.public";
 import { pool } from "./prisma";
 
 const app = express();
@@ -45,6 +46,8 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRouter);
 
 app.use("/api/admin", adminRouter);
+
+app.use("/api/levels", levelsPublicRouter);
 
 const port = Number(process.env.PORT || 4000);
 

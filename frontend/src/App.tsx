@@ -3,6 +3,7 @@ import './App.css'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Admin from './pages/Admin';
+import Levels from './pages/Levels';
 import { AuthProvider, useAuth } from './auth/AuthContext';
 
 function Home() {
@@ -115,6 +116,7 @@ function Shell() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="levels" element={<Levels />} />
       </Routes>
     </div>
   );

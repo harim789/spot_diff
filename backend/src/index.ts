@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import pgSession from "connect-pg-simple";
+import { ensureUploadDir, UPLOAD_DIR } from "./upload";
 import authRouter from "./auth";
 import adminRouter from "./admin";
 import levelsPublicRouter from "./routes/levels.public";
@@ -10,6 +11,9 @@ import { pool } from "./prisma";
 
 const app = express();
 app.use(express.json());
+
+ensureUploadDir();
+app.use("/uploads", express.static(UPLOAD_DIR));
 
 app.use(
   cors({ 

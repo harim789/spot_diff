@@ -71,7 +71,7 @@ router.post(
         }
 
         const leftImageUrl = `/uploads/${left.filename}`;
-        const rightImageUrl = `/uploads/${right.fieldname}`;
+        const rightImageUrl = `/uploads/${right.filename}`;
 
         const level = await prisma.level.create({
             data: {
@@ -125,7 +125,7 @@ router.patch(
         const left = files?.leftImage?.[0];
         const right = files?.rightImage?.[0];
 
-        const nextLeftUrl = left ? `/uploads/${left?.fieldname}` : undefined;
+        const nextLeftUrl = left ? `/uploads/${left?.filename}` : undefined;
         const nextRigntUrl = right ? `/uploads/${right?.filename}` : undefined;
 
         const updated = await prisma.level.update({
@@ -133,8 +133,8 @@ router.patch(
             data: {
                 ...(title !== undefined ? {title} : {}),
                 ...(isPublished !== undefined ? { isPublished } : {}),
-                ...(nextLeftUrl !== undefined ? { nextLeftUrl } : {}),
-                ...(nextRigntUrl !== undefined ? { nextRigntUrl } : {}),
+                ...(nextLeftUrl !== undefined ? { leftImageUrl: nextLeftUrl } : {}),
+                ...(nextRigntUrl !== undefined ? { rightImageUrl: nextRigntUrl } : {}),
             },
             select: {
                 id: true,

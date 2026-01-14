@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import Admin from './pages/Admin';
 import Levels from './pages/Levels';
 import Play from './pages/Play';
+import AdminLevels from './pages/AdminLevels';
 import { AuthProvider, useAuth } from './auth/AuthContext';
 
 function Home() {
@@ -14,9 +15,14 @@ function Home() {
     <div className="max-w-5xl mx-auto px-4 py-10">
       <div className="bg-white border rounded-2xl shadow-sm p-6">
         <div className="mb-3">
-          <Link to="/levels" className="text-lg font-semibold bg-gray-300 mb-2 px-3 py-1.5 rounded-lg hover:bg-gray-200 transition">
+          <Link to="/levels" className="mr-4 text-lg font-semibold bg-gray-300 mb-2 px-3 py-1.5 rounded-lg hover:bg-gray-200 transition">
             Go to Levels!
           </Link> 
+          {me?.role === "ADMIN" && (
+            <Link to="/admin/levels" className="text-lg font-semibold bg-gray-300 mb-2 px-3 py-1.5 rounded-lg hover:bg-gray-200 transition">
+              Admin Levels
+            </Link>
+          )}
         </div>   
         <p className="text-sm text-gray-500 mt-1">
           프론트 ↔ 백엔드 세션 인증 테스트 화면
@@ -123,6 +129,7 @@ function Shell() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/levels" element={<Levels />} />
         <Route path="/play/:id" element={<Play />} />
+        <Route path="/admin/levels" element={<AdminLevels />} />
       </Routes>
     </div>
   );

@@ -69,7 +69,7 @@ export default function AdminLevels() {
         setLoading(true);
         
         try {
-            const res: Response = await apiFetch("/api/admin/levels", {
+            const res: Response = await fetch("/api/admin/levels", {
                 method: "POST",
                 body: fd,
                 credentials: "include",

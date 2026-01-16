@@ -2,6 +2,7 @@ import { Router } from "express";
 import type { Router as ExpressRouter } from "express";
 import { requireAdmin, requireAuth } from "./middlewares/auth";
 import adminLevelsRouter from "./routes/admin.levels";
+import adminDiffsRouter from "./routes/admin.diff";
 import { prisma } from "./prisma";
 
 const router: ExpressRouter = Router();
@@ -25,5 +26,7 @@ router.get("/user", async (req, res) => {
 });
 
 router.use("/levels", adminLevelsRouter);
+
+router.use("/", adminDiffsRouter);
 
 export default router;

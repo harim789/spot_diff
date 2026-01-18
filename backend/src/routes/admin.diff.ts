@@ -36,7 +36,7 @@ router.post("/levels/:id/diffs", async (req, res) => {
     const y = Number(req.body.y);
     const r = Number(req.body.r);
 
-    if (!Number.isFinite(x) || !!Number.isFinite(y) || !Number.isFinite(r)) {
+    if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(r)) {
         return res.status(400).json({ message: "x, y, r must be numbers" });
     }
     if (r <= 0 || r > 300) return res.status(400).json({ message: "invalid radius" });

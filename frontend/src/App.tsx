@@ -7,6 +7,7 @@ import Levels from './pages/Levels';
 import Play from './pages/Play';
 import AdminLevels from './pages/AdminLevels';
 import { AuthProvider, useAuth } from './auth/AuthContext';
+import AdminDiffEditor from './pages/AdminDiffEditor';
 
 function Home() {
   const { me, logout } = useAuth();
@@ -130,6 +131,7 @@ function Shell() {
         <Route path="/levels" element={<Levels />} />
         <Route path="/play/:id" element={<Play />} />
         <Route path="/admin/levels" element={<AdminLevels />} />
+        <Route path="/admin/levels/:id/diffs" element={<AdminDiffEditor />} />
       </Routes>
     </div>
   );

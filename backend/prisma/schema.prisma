@@ -72,3 +72,16 @@ model Attempt {
   @@index([userId])
   @@index([levelId])
 }
+
+model FoundDiff {
+  id        String   @id @default(cuid())
+  attemptId String
+  diffId    String
+  foundAt   DateTime @default(now())
+
+  attempt   Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  diff      Diff     @relation(fields: [diffId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, diffId])
+  @@index([attemptId])
+}

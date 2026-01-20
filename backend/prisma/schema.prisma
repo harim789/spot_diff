@@ -51,6 +51,8 @@ model Diff {
 
   createdAt DateTime  @default(now())
 
+  foundDiffs FoundDiff[] 
+
   level     Level     @relation(fields: [levelId], references: [id], onDelete: Cascade)
 
   @@index([levelId])

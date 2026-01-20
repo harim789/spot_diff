@@ -66,6 +66,8 @@ model Attempt {
   wrongClicks Int     @default(0)
   foundCount Int      @default(0)
 
+  foundDiffs FoundDiff[]
+
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   level      Level    @relation(fields: [levelId], references: [id], onDelete: Cascade)
 

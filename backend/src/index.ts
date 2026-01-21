@@ -8,6 +8,7 @@ import authRouter from "./auth";
 import adminRouter from "./admin";
 import levelsPublicRouter from "./routes/levels.public";
 import attemptsRouter from "./routes/attempts";
+import checkRouter from "./routes/check";
 import { pool } from "./prisma";
 
 const app = express();
@@ -55,6 +56,8 @@ app.use("/api/admin", adminRouter);
 app.use("/api/levels", levelsPublicRouter);
 
 app.use("/api/attempts", attemptsRouter);
+
+app.use("/api", checkRouter);
 
 const port = Number(process.env.PORT || 4000);
 

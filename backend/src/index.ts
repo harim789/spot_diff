@@ -7,6 +7,7 @@ import { ensureUploadDir, UPLOAD_DIR } from "./upload";
 import authRouter from "./auth";
 import adminRouter from "./admin";
 import levelsPublicRouter from "./routes/levels.public";
+import attemptsRouter from "./routes/attempts";
 import { pool } from "./prisma";
 
 const app = express();
@@ -52,6 +53,8 @@ app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
 
 app.use("/api/levels", levelsPublicRouter);
+
+app.use("/api/attempts", attemptsRouter);
 
 const port = Number(process.env.PORT || 4000);
 
